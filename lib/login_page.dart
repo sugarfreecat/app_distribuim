@@ -25,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
       GoogleSignIn.instance.authenticationEvents.listen((event) {
         if (event is GoogleSignInAuthenticationEventSignIn) {
           AuthService().signInWithGoogleAccount(event.user).catchError((error) {
-            // Optionally report or handle web auth errors here.
             debugPrint('Web sign-in failed: $error');
           });
         }
