@@ -1,45 +1,65 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart'
+    show kIsWeb, defaultTargetPlatform, TargetPlatform;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform, TargetPlatform;
+
+import '../config/app_config.dart';
 
 class AuthService {
   String getGoogleSignInClientId() {
     if (kIsWeb) {
-      return '805457744542-n3o1seocm8ef363th6rblme905s3nra6.apps.googleusercontent.com';
+      return AppConfig.webClientId;
     }
 
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return 'ANDROID_CLIENT_ID';
+        return AppConfig.androidClientId;
+
       case TargetPlatform.iOS:
-        return '805457744542-75v6rvipp8jd41v4ltr17e5dodu75i19.apps.googleusercontent.com';
+        return AppConfig.iosClientId;
+
       default:
-        throw UnsupportedError('Unsupported platform');
+        throw UnsupportedError(
+          'Google Sign-In not supported on this platform',
+        );
     }
   }
 
   Future<UserCredential> signInWithGoogle() async {
-    await GoogleSignIn.instance.initialize(
-      clientId: getGoogleSignInClientId(),
-    );
+    try {
+      // WEB
+      if (kIsWeb) {
+        return await FirebaseAuth.instance.signInWithPopup(
+          GoogleAuthProvider(),
+        );
+      }
 
-    final GoogleSignInAccount? googleUser = await GoogleSignIn.instance.authenticate();
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      // MOBILE
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
-    final credential = GoogleAuthProvider.credential(
-      idToken: googleAuth?.idToken,
-    );
+      await googleSignIn.initialize(
+        clientId: getGoogleSignInClientId(),
+        serverClientId: AppConfig.webClientId
+      );
 
-    return FirebaseAuth.instance.signInWithCredential(credential);
-  }
+      final GoogleSignInAccount googleUser =
+          await googleSignIn.authenticate();
 
-  Future<UserCredential> signInWithGoogleAccount(GoogleSignInAccount account) async {
-    final GoogleSignInAuthentication? googleAuth = await account.authentication;
-    final credential = GoogleAuthProvider.credential(
-      idToken: googleAuth?.idToken,
-    );
+      final GoogleSignInAuthentication googleAuth =
+          googleUser.authentication;
 
-    return FirebaseAuth.instance.signInWithCredential(credential);
+      final OAuthCredential credential =
+          GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      return await FirebaseAuth.instance
+          .signInWithCredential(credential);
+    } catch (e) {
+      throw Exception(
+        'Erro ao fazer login com Google: $e',
+      );
+    }
   }
 
   Future<void> signOut() async {
