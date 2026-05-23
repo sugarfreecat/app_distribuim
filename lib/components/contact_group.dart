@@ -18,9 +18,14 @@ class ContactGroup extends StatelessWidget {
         return Column(
           children: [
             ContactGroupHeader(city: city),
-            ...city.clients.map((client) => ContactGroupClients(client: client)),
-            const Divider(height: 1, thickness: 1, color: Color.fromARGB(120, 158, 158, 158)),
-
+            ...city.clients.map((client) {
+              return Column(
+                children: [
+                  ContactGroupClients(client: client),
+                  const Divider(height: 1, thickness: 1, color: Color.fromARGB(120, 158, 158, 158)),
+                ],
+              );
+            }),
           ],
         );
 
