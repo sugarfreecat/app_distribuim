@@ -3,38 +3,27 @@ import 'package:flutter/material.dart';
 import 'components/client_list.dart';
 import 'components/custom_appbar.dart';
 import 'components/custom_bottom_appbar.dart';
+import 'components/delivery_list.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key, required this.user});
 
   final User user;
-  final clientsByCity = [
-      City(
-        cityName: "Praia Grande",
-        clients: [
-          Client(name: "João", address: "Rua A, 123"),
-          Client(name: "Carlos", address: "Rua B, 456"),
-        ],
-      ),
-      City(
-        cityName: "Santos",
-        clients: [
-          Client(name: "Maria", address: "Rua C, 789"),
-        ],
-      ),
-  ];
+
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
+  final GlobalKey<ClientListState> _clientKey = GlobalKey<ClientListState>();
+  final GlobalKey<DeliveryListState> _deliveryKey = GlobalKey<DeliveryListState>();
 
   @override
   Widget build(BuildContext context) {
     final List<TabDestination> destinations = [
       TabDestination(
         appBar: CustomAppBar(title: 'Clientes'),
-        body: ClientList(cities: clientsByCity),
+        body: ClientList(key: _clientKey),
       ),
       TabDestination(
         appBar: CustomAppBar(title: 'Entregas'),
-        body: const Center(child: Text('Tela de Entregas')), // mudar para widget q englobando tudo q vai aparecer no body de entregas
+        body: DeliveryList(key: _deliveryKey),
       )
     ];
 
@@ -47,7 +36,15 @@ class HomePage extends StatelessWidget {
           appBar: currentTab.appBar,
           body: currentTab.body,
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              // Isso vai mudar dependendo de qual aba o usuário está
+              if (_selectedIndex.value == 0) { // Ta na aba de clientes
+                _clientKey.currentState?.adicionarCliente();
+                
+              } else if (_selectedIndex.value == 1) { // Aba de entregas
+                _deliveryKey.currentState?.adicionarEntrega();
+              }
+            },
             tooltip: 'Formulário',
             shape: const CircleBorder(),
             child: const Icon(Icons.add),
