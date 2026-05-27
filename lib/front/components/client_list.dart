@@ -1,18 +1,64 @@
 import 'package:flutter/material.dart';
 
-class ClientList extends StatelessWidget {
-  final List<City> cities;
+class ClientList extends StatefulWidget {
+  const ClientList({super.key});
 
-  const ClientList({
-    super.key,
-    required this.cities,
-  });
+  @override
+  State<ClientList> createState() => ClientListState();
+}
 
+class ClientListState extends State<ClientList> {
+  // Lista inicial, no projeto final não vai ter nada, é só pra teste
+  final List<City> _clientsByCity = [
+    City(
+      cityName: "Praia Grande",
+      clients: [
+        Client(name: "João", address: "Rua A, 123"),
+        Client(name: "Carlos", address: "Rua B, 456"),
+      ],
+    ),
+    City(
+      cityName: "Santos",
+      clients: [
+        Client(name: "Maria", address: "Rua C, 789"),
+      ],
+    ),
+  ];
+
+  void adicionarCliente() {
+    setState(() {
+      // Dados de exemplo (depois vai ter um formulário real)
+      String cidadeAlvo = "São Vicente"; 
+      String nomeCliente = "Novo Cliente Genérico";
+      String enderecoCliente = "Rua Genérica, 123";
+
+      // Procura se a cidade alvo já existe na lista
+      final index = _clientsByCity.indexWhere((cidade) => 
+          cidade.cityName.toLowerCase() == cidadeAlvo.toLowerCase());
+
+      if (index != -1) {
+        // Se existe, só adiciona o cliente na cidade
+        _clientsByCity[index].clients.add(
+          Client(name: nomeCliente, address: enderecoCliente)
+        );
+      } else {
+        // Se não existe, cria a cidade e adiciona o cliente nela
+        _clientsByCity.add(
+          City(
+            cityName: cidadeAlvo, 
+            clients: [
+              Client(name: nomeCliente, address: enderecoCliente),
+            ],
+          ),
+        );
+      }
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: cities.map((city) {
-
+      children: _clientsByCity.map((city) {
         return Column(
           children: [
             ClientListHeader(city: city),
@@ -26,7 +72,6 @@ class ClientList extends StatelessWidget {
             }),
           ],
         );
-
       }).toList(),
     );
   }
@@ -53,9 +98,7 @@ class ClientListHeader extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-
           const SizedBox(width: 10),
-
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 8,
@@ -99,22 +142,17 @@ class ClientListClients extends StatelessWidget {
                     Row(
                       children: [
                         Icon(Icons.group, color: Colors.green[700]),
-
                         const SizedBox(width: 8),
-
                         Text(
                           client.name,
                           style: const TextStyle(
                             fontSize: 18,
-                            fontWeight:
-                                FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 8),
-
                     Text(
                       client.address,
                       style: TextStyle(
@@ -137,7 +175,6 @@ class ClientListClients extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 20),
 
           // botões
@@ -152,12 +189,10 @@ class ClientListClients extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(Icons.edit),
               ),
-
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.phone),
               ),
-
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.chat_bubble),

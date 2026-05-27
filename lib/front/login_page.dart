@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/elevated_button.dart';
+import 'components/elevated_button.dart';
 import '../back/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
