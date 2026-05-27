@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'city.dart';
-import 'client.dart';
 
-class ContactGroup extends StatelessWidget {
+class ClientList extends StatelessWidget {
   final List<City> cities;
 
-  const ContactGroup({
+  const ClientList({
     super.key,
     required this.cities,
   });
@@ -17,11 +15,11 @@ class ContactGroup extends StatelessWidget {
 
         return Column(
           children: [
-            ContactGroupHeader(city: city),
+            ClientListHeader(city: city),
             ...city.clients.map((client) {
               return Column(
                 children: [
-                  ContactGroupClients(client: client),
+                  ClientListClients(client: client),
                   const Divider(height: 1, thickness: 1, color: Color.fromARGB(120, 158, 158, 158)),
                 ],
               );
@@ -34,9 +32,9 @@ class ContactGroup extends StatelessWidget {
   }
 }
 
-class ContactGroupHeader extends StatelessWidget {
+class ClientListHeader extends StatelessWidget {
   final City city;
-  const ContactGroupHeader({super.key, required this.city});
+  const ClientListHeader({super.key, required this.city});
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +76,9 @@ class ContactGroupHeader extends StatelessWidget {
   }
 }
 
-class ContactGroupClients extends StatelessWidget {
+class ClientListClients extends StatelessWidget {
   final Client client;
-  const ContactGroupClients({super.key, required this.client});
+  const ClientListClients({super.key, required this.client});
 
   @override
   Widget build(BuildContext context) {
@@ -170,4 +168,21 @@ class ContactGroupClients extends StatelessWidget {
       ),
     );
   }
+}
+
+class City {
+  final String cityName;
+  final List<Client> clients;
+
+  City({
+    required this.cityName,
+    required this.clients,
+  });
+}
+
+class Client {
+  final String name;
+  final String address;
+
+  Client({required this.name, required this.address});
 }

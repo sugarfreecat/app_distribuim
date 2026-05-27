@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'components/elevated_button.dart';
-import 'services/auth_service.dart';
+import '../components/elevated_button.dart';
+import '../back/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
