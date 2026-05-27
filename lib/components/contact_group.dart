@@ -88,28 +88,19 @@ class ContactGroupClients extends StatelessWidget {
       width: double.infinity,
       color: Colors.white,
       padding: const EdgeInsets.all(16),
-
       child: Column(
         children: [
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              // LEFT SIDE
+              // lado esquerdo com nome e endereço
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Row(
                       children: [
-
-                        Icon(
-                          Icons.group,
-                          color: Colors.green[700],
-                        ),
+                        Icon(Icons.group, color: Colors.green[700]),
 
                         const SizedBox(width: 8),
 
@@ -137,11 +128,11 @@ class ContactGroupClients extends StatelessWidget {
                 ),
               ),
 
-              // PRICE
+              // preço do lado direito
               const Text(
                 "R\$0.00",
                 style: TextStyle(
-                  color: Colors.red,
+                  color: Color.fromARGB(255, 212, 30, 17),
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -151,17 +142,14 @@ class ContactGroupClients extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          // ACTION BUTTONS
+          // botões
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.add),
               ),
-
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.edit),
