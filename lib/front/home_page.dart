@@ -4,15 +4,31 @@ import 'components/client_list.dart';
 import 'components/custom_appbar.dart';
 import 'components/custom_bottom_appbar.dart';
 import 'components/delivery_list.dart';
+import 'components/client_form.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key, required this.user});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.user});
 
   final User user;
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
-  final GlobalKey<ClientListState> _clientKey = GlobalKey<ClientListState>();
-  final GlobalKey<DeliveryListState> _deliveryKey = GlobalKey<DeliveryListState>();
+
+  final GlobalKey<ClientListState> _clientKey =
+      GlobalKey<ClientListState>();
+
+  final GlobalKey<DeliveryListState> _deliveryKey =
+      GlobalKey<DeliveryListState>();
+
+  @override
+  void dispose() {
+    _selectedIndex.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +53,14 @@ class HomePage extends StatelessWidget {
           body: currentTab.body,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // Isso vai mudar dependendo de qual aba o usuário está
               if (_selectedIndex.value == 0) { // Ta na aba de clientes
-                _clientKey.currentState?.adicionarCliente();
+                // _clientKey.currentState?.adicionarCliente();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ClientForm(),
+                  ),
+                );
                 
               } else if (_selectedIndex.value == 1) { // Aba de entregas
                 _deliveryKey.currentState?.adicionarEntrega();

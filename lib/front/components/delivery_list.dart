@@ -8,14 +8,17 @@ class DeliveryList extends StatefulWidget {
 }
 
 class DeliveryListState extends State<DeliveryList> {
-  final List<String> _entregas = [
+  final List<Delivery> _entregas = [
+    Delivery(title: 'Entrega 1 - Endereço a definir', status: 'Pendente'),
+    Delivery(title: 'Entrega 2 - Endereço a definir', status: 'Pendente'),
+    Delivery(title: 'Entrega 3 - Endereço a definir', status: 'Pendente'),
   ];
 
   void adicionarEntrega() {
     // Essa função vai conectar com o backend pra pegar as informações necessárias da entrega
     // Como nome do cliente e endereço
     setState(() {
-      _entregas.add("Entrega ${_entregas.length + 1} - Endereço a definir");
+      _entregas.add(Delivery(title: 'Entrega ${_entregas.length + 1} - Endereço a definir', status: 'Pendente'));
     });
   }
 
@@ -33,10 +36,10 @@ class DeliveryListState extends State<DeliveryList> {
               child: Icon(Icons.local_shipping, color: Colors.white, size: 20),
             ),
             title: Text(
-              _entregas[index],
+              _entregas[index].title,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: const Text('Status: Pendente'),
+            subtitle: Text(_entregas[index].status),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
           ),
@@ -44,4 +47,11 @@ class DeliveryListState extends State<DeliveryList> {
       },
     );
   }
+}
+
+class Delivery {
+  final String title;
+  final String status;
+
+  Delivery({required this.title, required this.status});
 }
