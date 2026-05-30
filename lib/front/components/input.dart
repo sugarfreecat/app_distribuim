@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Input extends StatelessWidget {
-  const Input({super.key, required this.label, required this.hintText});
+  const Input({super.key, required this.label, required this.hintText, this.numberInput = false});
   final String label;
   final String hintText;
+  final bool numberInput;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class Input extends StatelessWidget {
         ],
       ),
       child: TextField(
+        keyboardType: numberInput ? TextInputType.number : TextInputType.text,
         decoration: InputDecoration(
           labelText: label,
           hintText: hintText,

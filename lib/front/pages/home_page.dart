@@ -5,6 +5,7 @@ import '../components/custom_appbar.dart';
 import '../components/custom_bottom_appbar.dart';
 import 'delivery_list.dart';
 import 'client_form.dart';
+import 'delivery_form.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.user});
@@ -63,7 +64,13 @@ class _HomePageState extends State<HomePage> {
                 );
                 
               } else if (_selectedIndex.value == 1) { // Aba de entregas
-                _deliveryKey.currentState?.adicionarEntrega();
+                // _deliveryKey.currentState?.adicionarEntrega();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DeliveryForm(),
+                  ),
+                );
               }
             },
             tooltip: 'Formulário',

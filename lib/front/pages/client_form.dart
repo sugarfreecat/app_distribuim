@@ -11,28 +11,25 @@ class ClientForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Novo Cliente', leading: true),
+      appBar: CustomAppBar(title: 'Cadastro de Cliente', leading: true),
       backgroundColor: const Color(0xFFF7F8F5),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Input(label: 'Nome', hintText: 'Digite o nome do cliente'),
-                const SizedBox(height: 20),
-                Input(label: 'Endereço', hintText: 'Digite o endereço do cliente'),
-                const SizedBox(height: 20),
-                Dropdown(cities: _cities, hintText: 'Cidade'),
-                const SizedBox(height: 20),
-                Input(label: 'Telefone', hintText: 'Digite o telefone do cliente'),
-                const SizedBox(height: 20),
-                Input(label: 'Complemento ou ponto de referência', hintText: 'Digite o complemento ou ponto de referência do cliente'),
-                const SizedBox(height: 20),
-                CheckBox(label: "Pode vender fiado para o cliente?")
-              ],
-            ),
+          padding: const EdgeInsets.all(36),
+          child: Column(
+            children: [
+              Input(label: 'Nome', hintText: 'Digite o nome do cliente'),
+              const SizedBox(height: 20),
+              Input(label: 'Endereço', hintText: 'Digite o endereço do cliente'),
+              const SizedBox(height: 20),
+              Dropdown(options: _cities, hintText: 'Cidade'),
+              const SizedBox(height: 20),
+              Input(label: 'Telefone', hintText: 'Digite o telefone do cliente'),
+              const SizedBox(height: 20),
+              Input(label: 'Complemento ou ponto de referência', hintText: 'Digite o complemento ou ponto de referência do cliente'),
+              const SizedBox(height: 20),
+              CheckBox(label: "Pode vender fiado para o cliente?")
+            ],
           ),
         ),
       ),

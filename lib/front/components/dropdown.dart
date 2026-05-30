@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Dropdown extends StatelessWidget {
-  const Dropdown({super.key, required this.cities, required this.hintText});
-  final List<String> cities;
+  const Dropdown({super.key, required this.options, required this.hintText});
+  final List<String> options;
   final String hintText;
 
   @override
@@ -59,10 +59,10 @@ class Dropdown extends StatelessWidget {
               ),
             ),
 
-            dropdownMenuEntries: cities.map(
-              (city) => DropdownMenuEntry(
-                value: city,
-                label: city,
+            dropdownMenuEntries: options.map(
+              (option) => DropdownMenuEntry(
+                value: option,
+                label: option,
                 style: ButtonStyle(
                   padding: WidgetStatePropertyAll(
                     const EdgeInsets.symmetric(horizontal: 20),
