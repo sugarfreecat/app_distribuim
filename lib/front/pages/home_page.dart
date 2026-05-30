@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'components/client_list.dart';
-import 'components/custom_appbar.dart';
-import 'components/custom_bottom_appbar.dart';
-import 'components/delivery_list.dart';
-import 'components/client_form.dart';
+import 'client_list.dart';
+import '../components/custom_appbar.dart';
+import '../components/custom_bottom_appbar.dart';
+import 'delivery_list.dart';
+import 'client_form.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.user});
